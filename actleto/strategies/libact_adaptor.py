@@ -2,7 +2,6 @@ from .utils import MultipleQueryStrategy
 from libact.base.dataset import Dataset
 import numpy as np
 
-
 class AdaptorLibAct:
     """Adaptor for libact query strategies."""
     
@@ -10,7 +9,7 @@ class AdaptorLibAct:
                  X_full_dataset,
                  y_full_dataset,
                  libact_query_alg_ctor,
-                 max_samples_number = 40):
+                 max_samples_number=40):
         self._train_dataset = Dataset(X_full_dataset, y_full_dataset)
         self._ctor = libact_query_alg_ctor
         self._max_samples_number= max_samples_number
@@ -28,7 +27,8 @@ class AdaptorLibAct:
         self._libact_query_alg.update(indexes, y)
 
     def choose_samples_for_annotation(self):
-        return np.array(list(self._libact_query_alg.make_query()))
+        res = np.array(list(self._libact_query_alg.make_query()))
+        return res
 
 
 def make_libact_strategy_ctor(stg_ctor, max_samples_number):
